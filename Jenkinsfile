@@ -9,7 +9,7 @@ pipeline {
 			steps {
 				echo "Build Nodejs Version"
 				// sh 'node --version'
-				echo "Print envionment Variables...."
+				echo "Prints envionment Variables...."
 				echo "PATH: $PATH"
 				echo "BUILD_NUMBER: $env.BUILD_NUMBER"
 				echo "BUILD_ID: $env.BUILD_ID"
