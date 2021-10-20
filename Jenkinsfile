@@ -2,13 +2,19 @@
 //DECLARATIVE
 
 pipeline {
-	// agent any
-	agent { docker { image 'node:13.8' } }
+	 agent any
+	// agent { docker { image 'node:13.8' } }
 	stages {
 		stage('Build') {
 			steps {
 				echo "Build Nodejs Version"
-				sh 'node --version'
+				// sh 'node --version'
+				echo "Print some envioonment Variables...."
+				echo "PATH: $PATH"
+				echo "BUILD_NUMBER: $env.BUILD_NUMBER"
+				echo "BUILD_ID: $env.BUILD_ID"
+				echo "BUILD_TAB: $env.BUILD_TAG"
+				echo "CHANGE_ID: $env.CHANGE_ID"
 			}	
 		}
 		stage('Test') {
