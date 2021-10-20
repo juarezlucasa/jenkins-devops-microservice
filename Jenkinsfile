@@ -14,7 +14,7 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo "Build First Microservice in javascript"
-				sh 'maven --version'
+				sh 'mvn --version'
 				sh 'docker version'
 				echo "Prints envionment Variables...."
 				echo "PATH: $PATH"
