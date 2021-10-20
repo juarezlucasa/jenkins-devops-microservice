@@ -4,11 +4,19 @@
 pipeline {
 	 agent any
 	// agent { docker { image 'node:13.8' } }
+	envionment {
+		dockerHome = tool 'MyDocker'
+		mavenHome = tool 'MyMaven'
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+
+
+	}
 	stages {
 		stage('Build') {
 			steps {
-				echo "Build Nodejs Version"
-				// sh 'node --version'
+				echo "Build First Microservice in javascript"
+				sh 'maven --version'
+				sh 'docker version'
 				echo "Prints envionment Variables...."
 				echo "PATH: $PATH"
 				echo "BUILD_NUMBER: $env.BUILD_NUMBER"
