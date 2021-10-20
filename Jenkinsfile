@@ -11,7 +11,7 @@ pipeline {
 	}
 
 	stages {
-		stage('Build') {
+		stage('Checkout') {   //Lo hace implicito jenkins por pipeline, pero por las dudas lo declaramos
 			steps {
 				echo "Build First Microservice in javascript"
 				sh 'mvn --version'
@@ -25,14 +25,25 @@ pipeline {
 				echo "CHANGE_ID: $env.CHANGE_ID"
 			}	
 		}
-		stage('Test') {
+
+		stage('Build - Compile') {
 			steps {
-				echo "Test"
+				echo "Arranco a compilar la app"
+				sh "mvn clean compile"
 			}	
 		}
+
+		stage('Test') {
+			steps {
+				echo "Comienzo test unitarios"
+				sh "mvn test"
+			}	
+		}	
+
 		stage('Integration Test') {
 			steps {
-				echo "Integration Test"
+				echo "Comienzo test de integración"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}	
 		}		
 	}
