@@ -45,7 +45,36 @@ pipeline {
 				echo "Comienzo test de integración"
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}	
+		}
+
+		stage('Package JAR File') {
+			steps {
+				echo "Comienzo a generar el jar"
+				sh "mvn package -DskipTests"
+			}	
 		}		
+
+		stage('Build Docker Image') {
+			steps {
+				echo "Comienzo a buildear la imagen"
+				script {
+					dockerImage = docker.build("juarezlucavs/currecy-exchange-devops:${env.BUILD_TAG}")
+				}
+			}	
+		}
+
+		stage('Push Docker Image') {
+			steps {
+				echo "Comienzo a buildear la imagen"
+				script {
+					docker.withRegistry('','dockerhub') {
+						dockerImage.push();
+						dockerImage.push('latest');
+					} 
+				}
+			}	
+		}		
+
 	}
 
 	post{
